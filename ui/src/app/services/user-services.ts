@@ -37,4 +37,12 @@ deleteUser(id: number){
   return this.http.delete(`${environment.apiUrl}/user/${id}`);
 }
 
+create(user: object){
+  return this.http.post(`${environment.apiUrl}/user`, user);
+}
+
+update(user: any){
+  return this.http.patch(`${environment.apiUrl}/user/${user.id}` , user);
+}
+
 }

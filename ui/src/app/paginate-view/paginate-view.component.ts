@@ -1,22 +1,33 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonInfiniteScroll, IonInfiniteScrollContent } from "@ionic/angular/standalone";
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonButton, IonIcon, IonPopover, IonList, IonItem } from "@ionic/angular/standalone";
 import { PaginatedResponse } from '../interfaces/paginatedResponse';
 import { UserResponse } from '../interfaces/UserResponse';
 import { Observable } from 'rxjs';
-import { AsyncPipe , DatePipe} from '@angular/common';
+import {  DatePipe} from '@angular/common';
+import { addIcons } from 'ionicons';
+import { logoIonic } from 'ionicons/icons';
 import { UserServices } from '../services/user-services';
+import { UserFormComponent } from "../user-form/user-form.component";
+
 
 @Component({
   selector: 'app-paginate-view',
   templateUrl: './paginate-view.component.html',
   styleUrls: ['./paginate-view.component.scss'],
-  imports: [IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonCardTitle, DatePipe, IonContent , IonInfiniteScroll , IonInfiniteScrollContent],
+  imports: [IonGrid, IonRow, IonCol, IonCard,
+    IonCardHeader, IonCardContent, IonCardTitle,
+    DatePipe, IonContent, IonInfiniteScroll, IonInfiniteScrollContent,
+    IonButton, IonIcon, IonPopover, IonList, IonItem, UserFormComponent],
 })
 export class PaginateViewComponent{
+  private userService = inject(UserServices);
+  private cdr = inject(ChangeDetectorRef)
+  constructor(){
+    addIcons({logoIonic})
+  }
 @Input() users$: Observable<PaginatedResponse<UserResponse>> | null = null;
 @Input() users!: UserResponse[]
 @Output() userQuery = new EventEmitter<string>();
-
 @Input() pagination:any = {
   currentPage: 1,
   totalPages: 0 ,
@@ -25,6 +36,7 @@ export class PaginateViewComponent{
   sortBy: [],
   filter: {}
 };
+
 
 ngOnInit(){
   this.users$?.subscribe(resp => {
@@ -80,4 +92,30 @@ buildPageQuery(): string {
 
   return params.toString();
 }
+
+menuOpen = false;
+menuEvent: any;
+selectedUser!: UserResponse;
+
+
+
+closeModal(){
+  this.menuOpen= false ;
+}
+deleteUser(id: number){
+  this.menuOpen= false ;
+  this.userService.deleteUser(id).subscribe(res => this.userQuery.emit(this.buildPageQuery()))
+}
+showUserForm = false;
+openEditUser(): void {
+  this.menuOpen = false;    // Close popover
+  this.showUserForm = true;  // Open user modal
+}
+
+openMenu(event: Event, user: UserResponse): void {
+  this.menuEvent = event;
+  this.selectedUser = user;
+  this.menuOpen = true;
+}
+
 }

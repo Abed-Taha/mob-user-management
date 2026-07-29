@@ -1,0 +1,45 @@
+.controll-bar-container {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--blue-500);
+  min-height: fit-content;
+  color: var(--blue-50)
+}
+
+ion-input {
+  border: 1px solid #ddd;
+  --padding-start: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  --color: white;
+}
+
+ion-segment{
+  margin-bottom: 10px;
+  --background: #EEE;
+}
+
+ion-list {
+  background: transparent;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+ion-item{
+  padding: 5px;
+  --background: transparent;
+}
+
+ion-label{
+  text-align: center;
+  display: block;
+}
+
+@media screen and (orientation: landscape){
+  .controll-bar-container {
+  width: 80%;
+}
+}

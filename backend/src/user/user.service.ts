@@ -15,7 +15,6 @@ import { UpdateUser } from 'src/dto/update-user.dto';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { LoginUserDto } from 'src/dto/login-user.dto';
 
-const BCRYPT = 10;
 @Injectable()
 export class UserService {
   constructor(
@@ -24,8 +23,8 @@ export class UserService {
   ) {}
 
   async create(user: CreateUserDto): Promise<object> {
-    const hashed = await bcrypt.hash(user.password, BCRYPT);
-    const newUser = this.userRepository.create({ ...user, password: hashed });
+    const pass = await bcrypt.hash('12345678', 10);
+    const newUser = this.userRepository.create({ ...user, password: pass });
     await this.userRepository.save(newUser);
     return { message: 'User created successfully', id: newUser.id };
   }

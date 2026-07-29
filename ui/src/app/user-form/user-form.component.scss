@@ -1,0 +1,9 @@
+#btn-1 {
+  --color: white;
+}
+
+ion-button {
+  --color: var(--blue-400);
+  display: block;
+  margin: 0 auto;
+}

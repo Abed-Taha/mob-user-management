@@ -39,9 +39,8 @@ export class UserFormComponent implements OnChanges {
 
   private userService = inject(UserServices);
   private fb = inject(FormBuilder);
-
+  id:number = 0 ;
   userForm = this.fb.group({
-    id: [1],
     fullName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
   });
@@ -50,10 +49,10 @@ export class UserFormComponent implements OnChanges {
     if (changes['selectedUser']) {
       if (this.selectedUser) {
         this.userForm.patchValue({
-          id: this.selectedUser.id,
           fullName: this.selectedUser.fullName,
           email: this.selectedUser.email,
         });
+        this.id = this.selectedUser.id;
       } else {
         this.userForm.reset();
       }
@@ -76,11 +75,20 @@ export class UserFormComponent implements OnChanges {
 
   saveUser(): void {
 
+    if(this.selectedUser){
     if (this.userForm.valid) {
-      this.userService.update(this.userForm.value).subscribe({
+      this.userService.update(this.userForm.value , this.id).subscribe({
         next: res => location.reload(),
       });
       this.closeUserModal();
     }
+  }else {
+    if (this.userForm.valid) {
+      this.userService.create(this.userForm.value).subscribe({
+        next: res => location.reload(),
+      });
+      this.closeUserModal();
+    }
+  }
   }
 }

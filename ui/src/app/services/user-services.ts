@@ -41,8 +41,8 @@ create(user: object){
   return this.http.post(`${environment.apiUrl}/user`, user);
 }
 
-update(user: any){
-  return this.http.patch(`${environment.apiUrl}/user/${user.id}` , user);
+update(user: any , id:number){
+  return this.http.patch(`${environment.apiUrl}/user/${id}` , user);
 }
 
 }

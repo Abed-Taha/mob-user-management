@@ -5,9 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Put,
   Delete,
-  Query,
   Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';

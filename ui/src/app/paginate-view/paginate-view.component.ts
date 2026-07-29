@@ -104,12 +104,12 @@ closeModal(){
 }
 deleteUser(id: number){
   this.menuOpen= false ;
-  this.userService.deleteUser(id).subscribe(res => this.userQuery.emit(this.buildPageQuery()))
+  this.userService.deleteUser(id).subscribe(res => location.reload());
 }
 showUserForm = false;
 openEditUser(): void {
-  this.menuOpen = false;    // Close popover
-  this.showUserForm = true;  // Open user modal
+  this.menuOpen = false;   
+  this.showUserForm = true;
 }
 
 openMenu(event: Event, user: UserResponse): void {

@@ -5,12 +5,13 @@ import { UserResponse } from '../interfaces/UserResponse';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../interfaces/paginatedResponse';
 import { CommonModule } from '@angular/common';
+import { UserFormComponent } from "../user-form/user-form.component";
 
 @Component({
   selector: 'app-controll-bar',
   templateUrl: './controll-bar.component.html',
   styleUrls: ['./controll-bar.component.scss'],
-  imports: [IonInput, IonSegment, IonSegmentButton, IonLabel, IonList, IonItem, CommonModule]
+  imports: [IonInput, IonSegment, IonSegmentButton, IonLabel, IonList, IonItem, CommonModule, UserFormComponent]
 })
 export class ControllBarComponent implements OnInit {
   @Output() userQuery = new EventEmitter<string>();
@@ -20,6 +21,8 @@ export class ControllBarComponent implements OnInit {
   searchTerm = '';
   statusFilter = false;
   sortDirection: 'asc' | 'desc' = 'asc';
+
+  showUserForm = false ;
 
   ngOnInit(): void {
     this.getUsers();

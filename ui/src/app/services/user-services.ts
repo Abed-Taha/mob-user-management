@@ -13,7 +13,6 @@ export class UserServices {
   private http = inject(HttpClient);
 
 getUsers(query:string): Observable<PaginatedResponse<UserResponse>>{
-  const userId = sessionStorage.getItem('user') ?? 0;
   const queryParams: Record<string, string> = {};
 
   new URLSearchParams(query).forEach((value, key) => {
@@ -21,10 +20,7 @@ getUsers(query:string): Observable<PaginatedResponse<UserResponse>>{
   });
 
   return this.http.get<PaginatedResponse<UserResponse>>(`${environment.apiUrl}/user`, {
-    params: {
-      ...queryParams,
-      userId: userId,
-    },
+    params: queryParams,
   });
 }
 
@@ -39,6 +35,14 @@ restoreUser(id: number){
 
 deleteUser(id: number){
   return this.http.delete(`${environment.apiUrl}/user/${id}`);
+}
+
+create(user: object){
+  return this.http.post(`${environment.apiUrl}/user`, user);
+}
+
+update(user: any , id:number){
+  return this.http.patch(`${environment.apiUrl}/user/${id}` , user);
 }
 
 }

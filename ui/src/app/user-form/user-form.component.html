@@ -1,0 +1,36 @@
+@if (message) {
+  <ion-button id="btn-1" (click)="openUserModal()">
+    {{ message }}
+  </ion-button>
+}
+
+<ion-modal [isOpen]="isOpen" (didDismiss)="closeUserModal()" #userModal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="userModal.dismiss()">
+            Cancel
+          </ion-button>
+        </ion-buttons>
+
+        <ion-title>
+          {{ selectedUser ? 'Edit User' : 'Create User' }}
+        </ion-title>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="saveUser()" [disabled]="userForm.invalid">
+            Confirm
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <form [formGroup]="userForm">
+        <ion-input label="Name" formControlName="fullName"></ion-input>
+        <ion-input label="Email" formControlName="email"></ion-input>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

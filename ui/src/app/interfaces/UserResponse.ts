@@ -2,6 +2,6 @@ export interface UserResponse {
   id: number,
   fullName: string,
   email: string,
-  createAt: Date,
+  createdAt: Date,
   deletedAt: Date | null ,
 }

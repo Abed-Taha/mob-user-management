@@ -17,32 +17,31 @@ export class SeedService {
 
     const users: Partial<User>[] = [];
 
-    const start = SeedService.usersCount + 1;
-    const end = SeedService.usersCount + 30;
-
-    for (let i = start; i <= end; i++) {
-      const email = `User${i}@test.com`;
+    for (let i = 1; i <= 30; i++) {
+      const email = `user${i}@test.com`;
 
       const userExist = await this.userRepository.findOne({
-        where: {
-          email,
-        },
+        where: { email },
       });
 
-      if (!userExist) {
-        users.push({
-          fullName: `User ${i}`,
-          email,
-          password: hashedPass,
-        });
+      if (userExist) {
+        console.log(`${email} already exists`);
+        continue;
       }
+
+      users.push({
+        fullName: `User ${i}`,
+        email,
+        password: hashedPass,
+      });
     }
 
     if (users.length > 0) {
       await this.userRepository.save(users);
+      console.log(`${users.length} users created`);
+    } else {
+      console.log('All users already exist');
     }
-
-    SeedService.usersCount = end;
   }
 
   get usersCount() {

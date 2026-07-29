@@ -1,0 +1,66 @@
+<ion-grid>
+  <ion-row>
+
+    @for (user of users; track user.id) {
+    <ion-col size="12">
+
+      <ion-card>
+        <div class="flex">
+          <ion-card-header>
+            <ion-card-title>
+              {{ user.fullName }}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-button fill="clear" size="small" class="menu-button" (click)="openMenu($event, user)">
+            <ion-icon name="logo-ionic" size="large"></ion-icon>
+          </ion-button>
+        </div>
+
+        <ion-card-content>
+          <p>{{ user.email }}</p>
+          <p>Joined: {{ user.createdAt | date }}</p>
+        </ion-card-content>
+
+
+      </ion-card>
+
+
+    </ion-col>
+    }
+
+  </ion-row>
+</ion-grid>
+
+
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more users...">
+  </ion-infinite-scroll-content>
+
+</ion-infinite-scroll>
+
+<ion-popover [isOpen]="menuOpen" [event]="menuEvent" (didDismiss)="menuOpen=false">
+
+  <ng-template>
+
+    <ion-list>
+      <ion-item button (click)="openEditUser()">
+        Edit
+      </ion-item>
+
+      <ion-item button (click)="deleteUser(selectedUser.id)">
+        Delete
+      </ion-item>
+
+    </ion-list>
+
+  </ng-template>
+
+</ion-popover>
+
+<app-user-form
+  [selectedUser]="selectedUser"
+  [isOpen]="showUserForm"
+  (closed)="showUserForm=false">
+</app-user-form>

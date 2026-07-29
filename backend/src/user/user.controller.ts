@@ -5,9 +5,8 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Put,
   Delete,
-  Query,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -35,12 +34,12 @@ export class UserController {
     return this.userService.login(userInfo);
   }
 
-  @Get('')
-  async getAll(@Paginate() query: PaginateQuery, @Query('userId') userId: number) {
-    return this.userService.findAll(query, userId);
+  @Get()
+  async getAll(@Paginate() query: PaginateQuery) {
+    return this.userService.findAll(query);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() user: UpdateUser) {
     return this.userService.updateUser(id, user);
   }

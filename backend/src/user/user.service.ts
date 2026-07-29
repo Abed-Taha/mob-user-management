@@ -15,7 +15,6 @@ import { UpdateUser } from 'src/dto/update-user.dto';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { LoginUserDto } from 'src/dto/login-user.dto';
 
-const BCRYPT = 10;
 @Injectable()
 export class UserService {
   constructor(
@@ -24,8 +23,8 @@ export class UserService {
   ) {}
 
   async create(user: CreateUserDto): Promise<object> {
-    const hashed = await bcrypt.hash(user.password, BCRYPT);
-    const newUser = this.userRepository.create({ ...user, password: hashed });
+    const pass = await bcrypt.hash('12345678', 10);
+    const newUser = this.userRepository.create({ ...user, password: pass });
     await this.userRepository.save(newUser);
     return { message: 'User created successfully', id: newUser.id };
   }
@@ -37,7 +36,7 @@ export class UserService {
     return user;
   }
 
-  async findAll(query: PaginateQuery, userId: number): Promise<Paginated<User | null>> {
+  async findAll(query: PaginateQuery): Promise<Paginated<User | null>> {
     const config: PaginateConfig<User> = {
       sortableColumns: ['id', 'fullName', 'email', 'createdAt'],
       searchableColumns: ['fullName', 'email'],
@@ -48,7 +47,7 @@ export class UserService {
       withDeleted: true,
       maxLimit: 10,
     };
-
+    const userId = 0;
     const queryBuilder = this.userRepository
       .createQueryBuilder('user')
       .where('user.id != :userId', { userId });

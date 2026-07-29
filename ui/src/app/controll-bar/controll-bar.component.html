@@ -1,4 +1,9 @@
 <div class="controll-bar-container">
+  <app-user-form
+  [message]="'Create User'"
+  [isOpen]="showUserForm"
+  (closed)="showUserForm=false">
+</app-user-form>
   <ion-list lines="none">
     <ion-item>
       <ion-input placeholder="Search" color="primary" [value]="searchTerm" (ionInput)="onSearchChange($event)">
@@ -30,3 +35,4 @@
     </ion-item>
   </ion-list>
 </div>
+

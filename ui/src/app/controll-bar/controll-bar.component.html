@@ -1,0 +1,32 @@
+<div class="controll-bar-container">
+  <ion-list lines="none">
+    <ion-item>
+      <ion-input placeholder="Search" color="primary" [value]="searchTerm" (ionInput)="onSearchChange($event)">
+      </ion-input>
+    </ion-item>
+
+    <ion-label class="ion-text-center">Choose One:</ion-label>
+    <ion-item>
+      <ion-segment [value]="'active'" (ionChange)="onStatusChange($event.detail.value)">
+        <ion-segment-button value="active">
+          <ion-label color="success">Active</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="disabled">
+          <ion-label color="danger">Disabled</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+
+    <ion-label>Choose One:</ion-label>
+    <ion-item>
+      <ion-segment [value]="sortDirection" (ionChange)="onSortDirectionChange($event.detail.value)">
+        <ion-segment-button value="asc">
+          <ion-label class="black-label">Ascending</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="desc">
+          <ion-label class="black-label">Descending</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+  </ion-list>
+</div>

@@ -34,3 +34,8 @@ ion-title {
   display: block;
   text-align: center;
 }
+
+ion-content, ion-toolbar{
+  --background: #ddd;
+}
+

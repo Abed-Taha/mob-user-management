@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { IonInput, IonItem, IonLabel, IonList, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
 import { UserServices } from '../services/user-services';
 import { UserResponse } from '../interfaces/UserResponse';
@@ -13,8 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [IonInput, IonSegment, IonSegmentButton, IonLabel, IonList, IonItem, CommonModule]
 })
 export class ControllBarComponent implements OnInit {
-  private userService = inject(UserServices);
-  users$: Observable<PaginatedResponse<UserResponse>> = this.userService.getUsers('');
+  @Output() userQuery = new EventEmitter<string>();
 
   rows = 8;
   first = 0;
@@ -28,7 +27,7 @@ export class ControllBarComponent implements OnInit {
 
   getUsers(): void {
     const query = this.buildPageQuery();
-    this.users$ = this.userService.getUsers(query);
+   this.userQuery.emit(query);
   }
 
   onSearchChange(event: Event): void {

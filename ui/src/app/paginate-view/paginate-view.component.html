@@ -1,0 +1,33 @@
+<ion-grid>
+    <ion-row>
+
+      @for (user of users; track user.id) {
+      <ion-col size="6">
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              {{ user.fullName }}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>{{ user.email }}</p>
+            <p>Joined: {{ user.createdAt | date }}</p>
+          </ion-card-content>
+
+        </ion-card>
+
+      </ion-col>
+      }
+
+    </ion-row>
+</ion-grid>
+
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more users...">
+  </ion-infinite-scroll-content>
+
+</ion-infinite-scroll>

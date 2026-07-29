@@ -14,6 +14,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <app-controll-bar></app-controll-bar>
+    <app-controll-bar (userQuery)="filterUsers($event)" />
+    <app-paginate-view [users$]="users$"[users]="users" [pagination]="pagination" (userQuery)="getUsers($event)"/>
   </ion-content>
 </ion-content>

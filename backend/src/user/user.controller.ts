@@ -35,9 +35,9 @@ export class UserController {
     return this.userService.login(userInfo);
   }
 
-  @Get('')
-  async getAll(@Paginate() query: PaginateQuery, @Query('userId') userId: number) {
-    return this.userService.findAll(query, userId);
+  @Get()
+  async getAll(@Paginate() query: PaginateQuery) {
+    return this.userService.findAll(query);
   }
 
   @Put(':id')

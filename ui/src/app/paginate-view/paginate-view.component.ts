@@ -44,7 +44,6 @@ ngOnInit(){
 }
 
 loadMore(event: any) {
-  console.log(this.pagination.currentPage , this.pagination?.totalPages)
   if ( this.pagination.currentPage >= this.pagination.totalPages) {
     event.target.complete();
     return;
@@ -108,7 +107,7 @@ deleteUser(id: number){
 }
 showUserForm = false;
 openEditUser(): void {
-  this.menuOpen = false;   
+  this.menuOpen = false;
   this.showUserForm = true;
 }
 

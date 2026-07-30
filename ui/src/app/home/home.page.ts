@@ -3,7 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 import { ControllBarComponent } from "../controll-bar/controll-bar.component";
 import { PaginateViewComponent } from "../paginate-view/paginate-view.component";
 import { UserServices } from '../services/user-services';
-import { Observable } from 'rxjs';
+import { debounceTime, Observable } from 'rxjs';
 import { PaginatedResponse } from '../interfaces/paginatedResponse';
 import { UserResponse } from '../interfaces/UserResponse';
 

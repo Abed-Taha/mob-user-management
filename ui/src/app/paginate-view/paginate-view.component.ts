@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonButton, IonIcon, IonPopover, IonList, IonItem } from "@ionic/angular/standalone";
 import { PaginatedResponse } from '../interfaces/paginatedResponse';
 import { UserResponse } from '../interfaces/UserResponse';
@@ -16,7 +16,7 @@ import { UserFormComponent } from "../user-form/user-form.component";
   styleUrls: ['./paginate-view.component.scss'],
   imports: [IonGrid, IonRow, IonCol, IonCard,
     IonCardHeader, IonCardContent, IonCardTitle,
-    DatePipe, IonContent, IonInfiniteScroll, IonInfiniteScrollContent,
+    DatePipe, IonInfiniteScroll, IonInfiniteScrollContent,
     IonButton, IonIcon, IonPopover, IonList, IonItem, UserFormComponent],
 })
 export class PaginateViewComponent{
@@ -54,9 +54,8 @@ loadMore(event: any) {
 };
 const query =  this.buildPageQuery();
 this.userQuery.emit(query);
-setTimeout(() => {
-  event.target.complete()
-} , 2000);
+
+  event.target.complete();
 }
 
 buildPageQuery(): string {
